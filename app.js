@@ -1,5 +1,3 @@
-
-
 const http = require('http'),
   path = require('path'),
   express = require('express'),
@@ -15,6 +13,7 @@ const db = new sqlite3.Database(':memory:');
 db.serialize(function () {
   db.run("CREATE TABLE user (username TEXT, password TEXT, title TEXT)");
   db.run("INSERT INTO user VALUES ('privilegedUser', 'privilegedUser1', 'Administrator')");
+  db.run("INSERT INTO user VALUES ('cat', 'dog', 'Administrator')");
 });
 
 // GET route to send HTML file to the browser
@@ -27,17 +26,16 @@ app.post('/login', (req, res) => {
   // Get username and password from req.body
   const { username, password } = req.body;
 
-// Create SQL query (Note: This is intentionally vulnerable to SQL injection)
-const query = `SELECT title FROM user WHERE username = '${username}' AND password = '${password}'`;
+  // Create SQL query (Note: This is intentionally vulnerable to SQL injection)
+  const query = `SELECT title FROM user WHERE username = '${username}' AND password = '${password}'`;
 
-// Log username, password, and SQL query
-console.log('Username:', username);
-console.log('Password:', password);
-console.log('SQL Query:', query);
+  // Log username, password, and SQL query
+  console.log('Username:', username);
+  console.log('Password:', password);
+  console.log('SQL Query:', query);
 
-// Run a SQLite method to verify login
-// Assume this is within an Express route handler
-db.get(query, function (err, row) {
+  // Run a SQLite method to verify login
+  db.get(query, function (err, row) {
     if (err) {
       console.log('ERROR', err);
       res.redirect("/index.html#error");
@@ -51,11 +49,10 @@ db.get(query, function (err, row) {
         <a href="/index.html">Go back to login</a>`);
     }
   });
-  
-  // This code assumes you have already defined your Express app
-  // and you are choosing a port to listen on
-  const port = 3000;
-  app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
-  
+});
+
+// Choose a port and start the server
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

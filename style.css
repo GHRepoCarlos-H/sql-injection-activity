@@ -1,0 +1,19 @@
+body {
+    background-color: aliceblue;
+    font-family: fantasy;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+#label-two{
+    margin-left: 40px;
+}
+

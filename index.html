@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D</title>
-    <link rel="stylesheet" href="style.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Injection Activity</title>
+  <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <div class="container">
-        <form action="/login" method="post">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
-  
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-  
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <script>
-        if(document.location.hash === '#unauthorized') {
-     document.write('<div class=“unauthorized”>Invalid Username or Password</div>');
-        } else if(document.location.hash === '#error') {
-     document.write('<div class=“error”>An error has occured</div>');
-        }
-      </script>
-     
-    
-    
+  <div class="container">
+      <form action="/login" method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label id="label-two" for="password">Password</label>
+        <input type="password" id="password" name="password" required /> 
+
+        <button type="submit">Submit</button>
+      </form>
+      <div id="message" class="message" style="display: none;"></div>
+  </div>
+  <script>
+      if(document.location.hash === '#unauthorized') {
+          showMessage('Invalid Username or Password', 'unauthorized');
+      } else if(document.location.hash === '#error') {
+          showMessage('An error has occurred', 'error');
+      }
+
+      function showMessage(message, className) {
+          var messageDiv = document.getElementById('message');
+          messageDiv.textContent = message;
+          messageDiv.className = className;
+          messageDiv.style.display = 'block';
+          setTimeout(function() {
+              messageDiv.style.display = 'none';
+          }, 2000);
+      }
+  </script>
 </body>
+
+
 </html>

@@ -16,6 +16,8 @@ db.serialize(function () {
   db.run("INSERT INTO user VALUES ('cat', 'dog', 'Administrator')");
 });
 
+//The SQL injection should be unknown' OR '1'='1, the book instruction is incorrect. 
+
 // GET route to send HTML file to the browser
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -42,10 +44,10 @@ app.post('/login', (req, res) => {
     } else if (!row) {
       res.redirect("/index.html#unauthorized");
     } else {
-      res.send(`Hello <b>${row.title}</b><br />
-        This file contains all your secret data: <br /><br />
-        SECRETS <br /><br />
-        MORE SECRETS <br /><br />
+      res.send(`Привет <b>${row.title}</b><br />
+      Этот файл содержит всю вашу секретную информацию: <br /><br />
+      СЕКРЕТЫ <br /><br />
+      ЕЩЕ СЕКРЕТЫ <br /><br />
         <a href="/index.html">Go back to login</a>`);
     }
   });
